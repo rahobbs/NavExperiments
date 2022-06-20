@@ -1,7 +1,7 @@
 package com.example.navexperiments.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +13,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.navexperiments.R
 
 class SecondFragment : Fragment() {
-
-
-    private lateinit var viewModel: SecondViewModel
     private val safeArgs: SecondFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -31,18 +28,12 @@ class SecondFragment : Fragment() {
 
         button.setOnClickListener {
             val action = SecondFragmentDirections.newSecondFragment("coming from second")
+            Log.d("SecondFragment", "click ${action.arguments.get("myArg")}")
             findNavController().navigate(action)
         }
 
         val text = view.findViewById<TextView>(R.id.message)
-        text.text = safeArgs.articleId
+        text.text = safeArgs.myArg
 
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SecondViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }
